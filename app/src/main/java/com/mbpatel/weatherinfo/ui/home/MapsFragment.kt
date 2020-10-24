@@ -20,23 +20,24 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.mbpatel.weatherinfo.utils.LocationHelper
-import com.mbpatel.weatherinfo.MainActivity
 import com.mbpatel.weatherinfo.R
+import com.mbpatel.weatherinfo.utils.InjectorUtils
+import com.mbpatel.weatherinfo.utils.LocationHelper
+import com.mbpatel.weatherinfo.utils.showToast
 import kotlinx.android.synthetic.main.fragment_maps.*
 import java.util.*
 
 
 class MapsFragment : Fragment() {
     private lateinit var mMap: GoogleMap
-//    private val mapViewModel: MapViewModel by viewModels {
-//        InjectorUtils.provideMapViewModelFactory(this)
-//    }
+    private val mapViewModel: MapViewModel by viewModels {
+        InjectorUtils.provideMapViewModelFactory(this)
+    }
     private val callback = OnMapReadyCallback { googleMap ->
         mMap = googleMap
         googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
         initLocation()
-        mMap.setOnMapClickListener {
+        /*mMap.setOnMapClickListener {
             val geocoder = Geocoder(activity, Locale.getDefault())
             val addresses: List<Address> = geocoder.getFromLocation(it.latitude, it.longitude, 1)
             val cityName: String = if(!TextUtils.isEmpty(addresses[0].subLocality)) addresses[0].subLocality+ "," else ""
@@ -52,6 +53,28 @@ class MapsFragment : Fragment() {
             //mapViewModel.addBookmark(it.latitude, it.longitude,"$cityName$stateName$countryName")
 
             //showToast(requireActivity(),getString(R.string.bookmark_saved))
+        }*/
+        mMap.setOnCameraIdleListener {
+            val center: LatLng = mMap.cameraPosition.target
+            val geocoder = Geocoder(activity, Locale.getDefault())
+            val addresses: List<Address> =
+                geocoder.getFromLocation(center.latitude, center.longitude, 1)
+            if (addresses.isNotEmpty()) {
+                val cityName: String =
+                    if (!TextUtils.isEmpty(addresses[0].subLocality)) addresses[0].subLocality + "," else ""
+                val stateName: String =
+                    if (!TextUtils.isEmpty(addresses[0].locality)) addresses[0].locality + "," else ""
+                val countryName: String =
+                    if (!TextUtils.isEmpty(addresses[0].adminArea)) addresses[0].adminArea + "" else ""
+
+                Log.e("MEHUL", "$cityName $stateName $countryName")
+                tvAddress.text = "$cityName $stateName $countryName"
+            }
+//            val clickedLocation = LatLng(center.latitude, center.longitude)
+//            googleMap.clear()
+//            googleMap.addMarker(
+//                MarkerOptions().position(clickedLocation).title("$cityName $stateName $countryName")
+//            )
         }
     }
 
@@ -70,8 +93,15 @@ class MapsFragment : Fragment() {
 
 //        (activity as MainActivity).supportActionBar?.title = getString(R.string.title_location)
 
-        btnDone.setOnClickListener {
-            findNavController().popBackStack()
+        btnChoose.setOnClickListener {
+            if (tvAddress.text.toString().isEmpty())
+                showToast(requireActivity(), getString(R.string.empty_address))
+            else
+                mapViewModel.addHistory(
+                    mMap.cameraPosition.target.latitude,
+                    mMap.cameraPosition.target.longitude,
+                    tvAddress.text.toString()
+                )
         }
     }
 
@@ -89,10 +119,10 @@ class MapsFragment : Fragment() {
                         mMap.moveCamera(
                             CameraUpdateFactory.newLatLngZoom(
                                 LatLng(loc.latitude, loc.longitude),
-                                8f
+                                15f
                             )
                         )
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(15f), 2000, null)
+                        // mMap.animateCamera(CameraUpdateFactory.zoomTo(15f), 2000, null)
                     }
                 }
             })

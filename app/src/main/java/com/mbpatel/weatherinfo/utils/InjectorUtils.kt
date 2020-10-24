@@ -2,10 +2,10 @@ package com.mbpatel.weatherinfo.utils
 
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.google.android.gms.maps.model.LatLng
 import com.mbpatel.weatherinfo.db.AppDatabase
 import com.mbpatel.weatherinfo.db.HistoryRepository
 import com.mbpatel.weatherinfo.ui.history.HistoryViewModelFactory
+import com.mbpatel.weatherinfo.ui.home.MapViewModelFactory
 
 //import com.mbpatel.weatherinfo.api.WeatherRepository
 //import com.mbpatel.weatherinfo.db.AppDatabase
@@ -31,7 +31,7 @@ object InjectorUtils {
         )
     }
 */
-    private fun getHomeRepository(context: Context): HistoryRepository {
+    private fun getHistoryRepository(context: Context): HistoryRepository {
         return HistoryRepository.getInstance(
             AppDatabase.getInstance(context.applicationContext).historyDao()
         )
@@ -42,14 +42,14 @@ object InjectorUtils {
             getCityRepository(fragment.requireContext()), mLatLng
         )
     }
-
+*/
     fun provideMapViewModelFactory(fragment: Fragment): MapViewModelFactory {
-        return MapViewModelFactory(getBookmarkRepository(fragment.requireContext()))
+        return MapViewModelFactory(getHistoryRepository(fragment.requireContext()))
     }
 
-   */ fun provideHomeListViewModelFactory(fragment: Fragment): HistoryViewModelFactory {
+    fun provideHomeListViewModelFactory(fragment: Fragment): HistoryViewModelFactory {
         return HistoryViewModelFactory(
-            getHomeRepository(fragment.requireContext()),
+            getHistoryRepository(fragment.requireContext()),
             fragment
         )
     }
