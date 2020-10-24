@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "233265760690",
+    "firebase_url": "https://weatherapp-cc602.firebaseio.com",
+    "project_id": "weatherapp-cc602",
+    "storage_bucket": "weatherapp-cc602.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233265760690:android:0814964b9859b182f27cab",
+        "android_client_info": {
+          "package_name": "com.mbpatel.weatherinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233265760690-oblh14g4f91f0dkbtedqjo1294holumh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mbpatel.weatherinfo",
+            "certificate_hash": "8da3c1620cb6b72cc309d73bbb6094b520a3d217"
+          }
+        },
+        {
+          "client_id": "233265760690-3soch0afp2vjefvheb8llll2i2dk31he.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDm7thK4vZOu55YlBKYJmvO_5xsHsmJLy4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233265760690-3soch0afp2vjefvheb8llll2i2dk31he.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">WeatherInfoApp</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_history">History</string>
+    <string name="menu_weather_info">Weather Info</string>
+    <string name="menu_logout">Logout</string>
+    <!--Login Activity-->
+    <string name="title_activity_signin">Sign In</string>
+    <string name="prompt_mobile">Mobile Number</string>
+    <string name="prompt_otp_code">OTP Code</string>
+    <string name="prompt_resend">Resend</string>
+    <string name="action_verify">Verify</string>
+    <string name="action_otp_code">Verify OTP</string>
+    <string name="search_location">Search Location</string>
+    <string name="action_choose">Choose</string>
+
+    <!--History Activity-->
+    <string name="str_not_found_history">No any History Location!</string>
+</resources>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="clickListener"
+            type="android.view.View.OnClickListener"/>
+        <variable
+            name="history"
+            type="com.mbpatel.weatherinfo.db.History"/>
+        <variable
+            name="viewModel"
+            type="com.mbpatel.weatherinfo.ui.history.HistoryViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        tools:showIn="@layout/fragment_home">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/ic_round_background"
+            android:padding="10dp"
+            android:paddingTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_round_history"
+            app:tint="@color/white" />
+
+        <TextView
+            android:id="@+id/txvProductName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text='@{history.name}'
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/delete"
+            app:layout_constraintStart_toEndOf="@id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="40dp"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:padding="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:onClick="@{clickListener}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_delete" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
