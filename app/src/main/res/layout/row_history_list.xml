@@ -2,21 +2,26 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="clickListener"
-            type="android.view.View.OnClickListener"/>
+            type="android.view.View.OnClickListener" />
+
         <variable
             name="history"
-            type="com.mbpatel.weatherinfo.db.History"/>
+            type="com.mbpatel.weatherinfo.db.History" />
+
         <variable
             name="viewModel"
             type="com.mbpatel.weatherinfo.ui.history.HistoryViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        tools:showIn="@layout/fragment_home">
+        tools:showIn="@layout/fragment_history">
 
         <ImageView
             android:id="@+id/imageView"
@@ -36,9 +41,10 @@
             android:id="@+id/txvProductName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:lines="2"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
-            android:text='@{history.name}'
+            android:text="@{history.name+'\n'+@string/latlng_format(history.latitude)+','+@string/latlng_format(history.longitude)}"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -51,10 +57,10 @@
             android:layout_width="40dp"
             android:layout_height="60dp"
             android:layout_margin="5dp"
+            android:onClick="@{clickListener}"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:onClick="@{clickListener}"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_delete" />
     </androidx.constraintlayout.widget.ConstraintLayout>

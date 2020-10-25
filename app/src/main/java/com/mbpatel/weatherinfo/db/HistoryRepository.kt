@@ -1,5 +1,8 @@
 package com.mbpatel.weatherinfo.db
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
 /**
  * Repository class that works with remote data sources.
  */
@@ -15,16 +18,16 @@ class HistoryRepository private constructor(private val historyDao: HistoryDao) 
         bLng: Double,
         bName: String
     ) {
-//        if (isEdit)
-//            bookmarkDao.updateComment(iId, iComment)
-//        else {
-        val mHistory = History(
-            latitude = bLat,
-            longitude = bLng,
-            name = bName
-        )
-        historyDao.insertHistory(mHistory)
-//        }
+        withContext(Dispatchers.IO) {
+            if (!historyDao.isHistoryAdded(bLat, bLng, bName)) {
+                val mHistory = History(
+                    latitude = bLat,
+                    longitude = bLng,
+                    name = bName
+                )
+                historyDao.insertHistory(mHistory)
+            }
+        }
     }
 
     fun searchHistory(keyword: String) = historyDao.searchHistory(keyword)

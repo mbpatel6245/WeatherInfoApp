@@ -9,13 +9,21 @@
         android:id="@+id/nav_map"
         android:name="com.mbpatel.weatherinfo.ui.home.MapsFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_maps" />
+        tools:layout="@layout/fragment_maps">
+        <action
+            android:id="@+id/action_map_fragment_to_weather_fragment"
+            app:destination="@id/nav_weather_info"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_history"
         android:name="com.mbpatel.weatherinfo.ui.history.HistoryFragment"
         android:label="@string/menu_history"
-        tools:layout="@layout/fragment_history" >
+        tools:layout="@layout/fragment_history">
         <action
             android:id="@+id/action_history_fragment_to_weather_fragment"
             app:destination="@id/nav_weather_info"
@@ -29,14 +37,23 @@
         android:id="@+id/nav_weather_info"
         android:name="com.mbpatel.weatherinfo.ui.weather.WeatherInfoFragment"
         android:label="@string/menu_weather_info"
-        tools:layout="@layout/fragment_weatherinfo" >
-        <argument
-            android:name="historyLatitude"
-            android:defaultValue="0"
-            app:argType="string" />
-        <argument
-            android:name="historyLongitude"
-            android:defaultValue="0"
-            app:argType="string" />
+        tools:layout="@layout/fragment_weatherinfo">
+        <action
+            android:id="@+id/action_weather_fragment_to_nested_graph"
+            app:destination="@id/weather_navigation"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+            <argument
+                android:name="historyLatitude"
+                android:defaultValue="0"
+                app:argType="string" />
+            <argument
+                android:name="historyLongitude"
+                android:defaultValue="0"
+                app:argType="string" />
+
     </fragment>
+    <include app:graph="@navigation/weather_navigation" />
 </navigation>

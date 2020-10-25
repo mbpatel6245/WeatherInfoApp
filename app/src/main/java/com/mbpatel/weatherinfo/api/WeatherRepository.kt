@@ -1,8 +1,10 @@
 package com.mbpatel.weatherinfo.api
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.mbpatel.weatherinfo.BuildConfig
 import com.mbpatel.weatherinfo.utils.Config
+import com.mbpatel.weatherinfo.utils.showToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,13 +23,14 @@ class WeatherRepository {
                     response: Response<TodayWeatherResponse?>
                 ) {
                     if (response.isSuccessful) {
-                        newsData.setValue(response.body())
+                        newsData.value = response.body()
                     }
                 }
 
                 override fun onFailure(call: Call<TodayWeatherResponse?>?, t: Throwable?) {
+                    Log.e("Today","Failure")
                     t!!.printStackTrace()
-                    //newsData.setValue(null)
+                   // newsData.value = null
                 }
             })
         return newsData
@@ -44,13 +47,13 @@ class WeatherRepository {
                     response: Response<ForecastWeatherResponse?>
                 ) {
                     if (response.isSuccessful) {
-                        newsData.setValue(response.body())
+                        newsData.value = response.body()
                     }
                 }
 
                 override fun onFailure(call: Call<ForecastWeatherResponse?>?, t: Throwable?) {
                     t!!.printStackTrace()
-//                    newsData.setValue(null)
+                    //newsData.value = null
                 }
             })
         return newsData

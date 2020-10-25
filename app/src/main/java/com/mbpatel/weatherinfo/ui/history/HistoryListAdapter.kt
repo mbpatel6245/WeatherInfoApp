@@ -45,11 +45,11 @@ class HistoryListAdapter(private val homeViewModel: HistoryViewModel) :
 
         private fun productClick(view: View) {
             binding.history?.let { product ->
-                navigateToProduction(product, view)
+                navigateToWeather(product, view)
             }
         }
 
-        private fun navigateToProduction(
+        private fun navigateToWeather(
             history: History,
             view: View
         ) {

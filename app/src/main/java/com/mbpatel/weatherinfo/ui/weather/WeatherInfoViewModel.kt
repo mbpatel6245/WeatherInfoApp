@@ -1,13 +1,30 @@
 package com.mbpatel.weatherinfo.ui.weather
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.maps.model.LatLng
+import com.mbpatel.weatherinfo.api.WeatherRepository
 
-class WeatherInfoViewModel : ViewModel() {
+class WeatherInfoViewModel(private val repository: WeatherRepository, location: LatLng) :
+    ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is slideshow Fragment"
-    }
-    val text: LiveData<String> = _text
+    var fetchTodayWeather = repository.getTodayWeather(
+        location.latitude,
+        location.longitude
+    )
+    var fetchForecastWeather = repository.getForecastWeather(
+        location.latitude,
+        location.longitude
+    )
+
+    /*private var todayWeatherData = MutableLiveData<LatLng>()*/
+
+  /*  var getTodayWeatherData: LiveData<TodayWeatherResponse> =
+        Transformations.switchMap(todayWeatherData) { mLatLng: LatLng ->
+            repository.getTodayWeather(mLatLng.latitude, mLatLng.longitude)
+        }
+
+    fun setBookMarkLocation(mLatLng: LatLng) {
+        this.todayWeatherData.value = mLatLng
+    }*/
+
 }

@@ -21,4 +21,6 @@ interface HistoryDao {
     @Query("SELECT * FROM history WHERE name LIKE '%' || :keyword || '%'")
     fun searchHistory(keyword: String): LiveData<List<History>>
 
+    @Query("SELECT EXISTS(SELECT 1 FROM history WHERE latitude = :latitude & longitude = :longitude & name = :name LIMIT 1)")
+    fun isHistoryAdded(latitude: Double, longitude: Double, name: String): Boolean
 }

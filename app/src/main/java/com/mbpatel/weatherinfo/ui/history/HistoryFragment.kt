@@ -31,11 +31,6 @@ class HistoryFragment : Fragment() {
             rvSearchList.adapter = adapter
             subscribeUi(adapter)
             HistoryListViewModel.setSearchableHistory(edtSearch.text.toString())
-
-//            val fab: FloatingActionButton = fabAddLocation
-//            fab.setOnClickListener {
-//                root.findNavController().navigate(R.id.navigation_map)
-//            }
             edtSearch.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(p0: Editable?) {
                     HistoryListViewModel.setSearchableHistory(edtSearch.text.toString())
@@ -52,10 +47,6 @@ class HistoryFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        (activity as MainActivity).supportActionBar?.title = getString(R.string.title_home)
-//    }
     private fun subscribeUi(adapter: HistoryListAdapter) {
         HistoryListViewModel.history.observe(viewLifecycleOwner) { product ->
             adapter.submitList(product)

@@ -17,7 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "APP_ID", "\"fae7190d7e6433ec3a45285ffcf55c86\""
+        buildConfigField "String", "APP_ID", "\"af3416e9a813079ae5507038a46bb267\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

@@ -4,8 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
 
-        <!--<import type="com.mappdev.rkstore.data.Products" />-->
-
         <import type="android.view.View" />
 
         <variable
@@ -45,6 +43,7 @@
             android:clipToPadding="false"
             android:paddingVertical="@dimen/row_item_margin_vertical"
             android:scrollbars="vertical"
+            tools:listitem="@layout/row_history_list"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

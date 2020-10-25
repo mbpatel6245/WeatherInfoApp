@@ -13,7 +13,7 @@
     <string name="menu_logout">Logout</string>
     <!--Login Activity-->
     <string name="title_activity_signin">Sign In</string>
-    <string name="prompt_mobile">Mobile Number</string>
+    <string name="prompt_mobile">Mobile Number (+91 84516 34613)</string>
     <string name="prompt_otp_code">OTP Code</string>
     <string name="prompt_resend">Resend</string>
     <string name="action_verify">Verify</string>
@@ -23,7 +23,17 @@
 
     <!--History Activity-->
     <string name="str_not_found_history">No any History Location!</string>
+    <string name="latlng_format">%.5f</string>
 
     <!--Map Activity-->
     <string name="empty_address">Please wait some time to fetch address</string>
+
+    <!--Log out-->
+    <string name="prompt_logout">Are you sure you want to logout?</string>
+    <string name="title_yes">YES</string>
+    <string name="title_no">NO</string>
+
+    <!--Weather Screen-->
+    <string name="title_current_weather">Current Weather</string>
+    <string name="title_forecast_weather">5 Days Forecast</string>
 </resources>
