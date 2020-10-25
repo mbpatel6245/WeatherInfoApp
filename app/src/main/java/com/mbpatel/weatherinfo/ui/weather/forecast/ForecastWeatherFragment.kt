@@ -14,6 +14,7 @@ import com.mbpatel.weatherinfo.R
 import com.mbpatel.weatherinfo.databinding.FragmentForecastWeatherBinding
 import com.mbpatel.weatherinfo.model.forecast.ForecastData
 import com.mbpatel.weatherinfo.ui.weather.WeatherInfoViewModel
+import com.mbpatel.weatherinfo.ui.weather.today.TodayWeatherFragment
 import com.mbpatel.weatherinfo.utils.InjectorUtils
 import com.mbpatel.weatherinfo.utils.convertDateToString
 import com.mbpatel.weatherinfo.utils.convertToDate
@@ -23,13 +24,22 @@ import kotlin.collections.HashMap
 class ForecastWeatherFragment : Fragment() {
     private val args: ForecastWeatherFragmentArgs by navArgs()
     private val dataMapList = HashMap<Int, List<ForecastData>>()
+    private var mLat=0.0
+    private var mLong=0.0
+
     private val weatherViewModel: WeatherInfoViewModel by viewModels {
         InjectorUtils.provideWeatherViewModelFactory(
             this,
-            LatLng(args.historyLatitude.toDouble(), args.historyLongitude.toDouble())
+            LatLng(mLat,mLong)
         )
     }
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments != null) {
+            mLat = requireArguments().getDouble(WEATHER_LATITUDE)
+            mLong = requireArguments().getDouble(WEATHER_LONGITUDE)
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -102,11 +112,15 @@ class ForecastWeatherFragment : Fragment() {
     }
     companion object {
         private const val WEATHER_POSITION = "INDEX"
+        private const val WEATHER_LATITUDE = "LATITUDE"
+        private const val WEATHER_LONGITUDE = "LONGITUDE"
 
-        fun newInstance(counter: Int): ForecastWeatherFragment {
+        fun newInstance(counter: Int, latLng: LatLng): ForecastWeatherFragment {
             val fragment = ForecastWeatherFragment()
             val args = Bundle()
             args.putInt(WEATHER_POSITION, counter)
+            args.putDouble(WEATHER_LATITUDE,latLng.latitude)
+            args.putDouble(WEATHER_LONGITUDE,latLng.longitude)
             fragment.arguments = args
             return fragment
         }

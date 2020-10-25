@@ -14,6 +14,7 @@ import com.mbpatel.weatherinfo.R
 import com.mbpatel.weatherinfo.databinding.FragmentTodayWeatherBinding
 import com.mbpatel.weatherinfo.model.forecast.ForecastData
 import com.mbpatel.weatherinfo.ui.weather.WeatherInfoViewModel
+import com.mbpatel.weatherinfo.ui.weather.forecast.ForecastWeatherFragment
 import com.mbpatel.weatherinfo.utils.InjectorUtils
 import com.mbpatel.weatherinfo.utils.convertToDate
 import com.mbpatel.weatherinfo.utils.loadImage
@@ -24,10 +25,21 @@ import kotlin.collections.HashMap
 class TodayWeatherFragment : Fragment() {
     private val args: TodayWeatherFragmentArgs by navArgs()
     private val dataMapList = HashMap<Int, List<ForecastData>>()
+    private var mLat=0.0
+    private var mLong=0.0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (arguments != null) {
+            mLat = requireArguments().getDouble(WEATHER_LATITUDE)
+            mLong = requireArguments().getDouble(WEATHER_LONGITUDE)
+        }
+    }
+
     private val weatherViewModel: WeatherInfoViewModel by viewModels {
         InjectorUtils.provideWeatherViewModelFactory(
             this,
-            LatLng(args.historyLatitude.toDouble(), args.historyLongitude.toDouble())
+            LatLng(mLat, mLong)
         )
     }
 
@@ -96,11 +108,15 @@ class TodayWeatherFragment : Fragment() {
 
     companion object {
         private const val WEATHER_POSITION = "INDEX"
+        private const val WEATHER_LATITUDE = "LATITUDE"
+        private const val WEATHER_LONGITUDE = "LONGITUDE"
 
-        fun newInstance(counter: Int): TodayWeatherFragment {
+        fun newInstance(counter: Int, latLng: LatLng): TodayWeatherFragment {
             val fragment = TodayWeatherFragment()
             val args = Bundle()
             args.putInt(WEATHER_POSITION, counter)
+            args.putDouble(WEATHER_LATITUDE,latLng.latitude)
+            args.putDouble(WEATHER_LONGITUDE,latLng.longitude)
             fragment.arguments = args
             return fragment
         }

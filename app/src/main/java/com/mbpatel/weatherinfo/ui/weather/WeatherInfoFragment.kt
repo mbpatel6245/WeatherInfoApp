@@ -23,13 +23,6 @@ import kotlin.collections.HashMap
 
 class WeatherInfoFragment : Fragment() {
     private val args: WeatherInfoFragmentArgs by navArgs()
-//    private val dataMapList = HashMap<Int, List<ForecastData>>()
-//    private val weatherViewModel: WeatherInfoViewModel by viewModels {
-//        InjectorUtils.provideWeatherViewModelFactory(
-//            this,
-//            LatLng(args.historyLatitude.toDouble(), args.historyLongitude.toDouble())
-//        )
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,26 +36,7 @@ class WeatherInfoFragment : Fragment() {
                 ViewPagerAdapter(
                     requireActivity(),LatLng(args.historyLatitude.toDouble(), args.historyLongitude.toDouble())
                 )
-           /* tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-                override fun onTabSelected(tab: TabLayout.Tab?) {
-                    Log.e("TAB SELECTED","TAB SELECTED")
 
-                    val direction =
-                        WeatherInfoFragmentDirections.actionWeatherFragmentToNestedGraph(
-                            args.historyLatitude,args.historyLongitude
-                        )
-                    findNavController().navigate(direction)
-                }
-
-                override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-                }
-
-                override fun onTabReselected(tab: TabLayout.Tab?) {
-
-                }
-
-            })*/
             TabLayoutMediator(tabLayout, tabViewPager) { tab, position ->
                 when (position) {
                     0 -> {

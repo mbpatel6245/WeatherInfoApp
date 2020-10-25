@@ -7,13 +7,13 @@ import com.google.android.gms.maps.model.LatLng
 import com.mbpatel.weatherinfo.ui.weather.forecast.ForecastWeatherFragment
 import com.mbpatel.weatherinfo.ui.weather.today.TodayWeatherFragment
 
-class ViewPagerAdapter(fragmentActivity: FragmentActivity, latLng: LatLng) :
+class ViewPagerAdapter(fragmentActivity: FragmentActivity,var latLng: LatLng) :
     FragmentStateAdapter(fragmentActivity) {
     override fun createFragment(position: Int): Fragment {
         return if(position==0)
-            TodayWeatherFragment.newInstance(position)
+            TodayWeatherFragment.newInstance(position,latLng)
         else
-            ForecastWeatherFragment.newInstance(position)
+            ForecastWeatherFragment.newInstance(position,latLng)
     }
 
     override fun getItemCount(): Int {
