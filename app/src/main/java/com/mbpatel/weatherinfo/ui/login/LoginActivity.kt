@@ -1,8 +1,6 @@
 package com.mbpatel.weatherinfo.ui.login
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.TextUtils
@@ -13,9 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
-import com.google.firebase.auth.*
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import com.mbpatel.weatherinfo.App
 import com.mbpatel.weatherinfo.MainActivity
 import com.mbpatel.weatherinfo.R
@@ -176,15 +175,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     // Sign in failed, display a message and update the UI
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
-                        // The verification code entered was invalid
-                        // [START_EXCLUDE silent]
                         edtVerificationCode.error = "Invalid OTP."
-                        // [END_EXCLUDE]
                     }
-                    // [START_EXCLUDE silent]
-                    // Update UI
                     updateUI(STATE_SIGNIN_FAILED)
-                    // [END_EXCLUDE]
                 }
             }
     }
@@ -214,17 +207,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         when (uiState) {
             STATE_INITIALIZED -> {
                 // Initialized state, show only the phone number field and start button
-//                enableViews(binding.btnVerify, binding.edtMobile)
-//                disableViews(binding.buttonVerifyPhone, binding.buttonResend, binding.fieldVerificationCode)
-                //binding.detail.text = null
                 Toast.makeText(this, "STATE INITALIZED", Toast.LENGTH_SHORT).show()
             }
             STATE_CODE_SENT -> {
                 // Code sent state, show the verification field, the
-//                enableViews(binding.buttonVerifyPhone, binding.buttonResend,
-//                    binding.fieldPhoneNumber, binding.fieldVerificationCode)
-//                disableViews(binding.buttonStartVerification)
-                //binding.detail.setText(R.string.status_code_sent)
                 loading.visibility = View.GONE
                 groupMobileNumber.visibility = View.GONE
                 groupVerification.visibility = View.VISIBLE
@@ -234,10 +220,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             STATE_VERIFY_FAILED -> {
                 // Verification has failed, show all options
-//                enableViews(binding.buttonStartVerification, binding.buttonVerifyPhone,
-//                    binding.buttonResend, binding.fieldPhoneNumber,
-//                    binding.fieldVerificationCode)
-//                binding.detail.setText(R.string.status_verification_failed)
                 loading.visibility = View.GONE
                 Toast.makeText(
                     this,
@@ -247,11 +229,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
             STATE_VERIFY_SUCCESS -> {
                 // Verification has succeeded, proceed to firebase sign in
-                /*disableViews(binding.buttonStartVerification, binding.buttonVerifyPhone,
-                    binding.buttonResend, binding.fieldPhoneNumber,
-                    binding.fieldVerificationCode)
-                binding.detail.setText(R.string.status_verification_succeeded)
-                */
                 // Set the verification text based on the credential
                 if (cred != null) {
                     if (cred.smsCode != null) {
@@ -274,26 +251,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 Toast.makeText(this, "Invalid OTP code Please try again!", Toast.LENGTH_LONG).show()
             STATE_SIGNIN_SUCCESS -> {
             }
-        } // Np-op, handled by sign-in check
-
-        /*  if (user == null) {
-              // Signed out
-              binding.phoneAuthFields.visibility = View.VISIBLE
-              binding.signedInButtons.visibility = View.GONE
-
-              binding.status.setText(R.string.signed_out)
-          } else {
-              // Signed in
-              binding.phoneAuthFields.visibility = View.GONE
-              binding.signedInButtons.visibility = View.VISIBLE
-
-              enableViews(binding.fieldPhoneNumber, binding.fieldVerificationCode)
-              binding.fieldPhoneNumber.text = null
-              binding.fieldVerificationCode.text = null
-
-              binding.status.setText(R.string.signed_in)
-              binding.detail.text = getString(R.string.firebase_status_fmt, user.uid)
-          }*/
+        }
     }
 
     private fun validatePhoneNumber(): Boolean {
@@ -304,18 +262,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         return true
-    }
-
-    private fun enableViews(vararg views: View) {
-        for (v in views) {
-            v.isEnabled = true
-        }
-    }
-
-    private fun disableViews(vararg views: View) {
-        for (v in views) {
-            v.isEnabled = false
-        }
     }
 
     override fun onClick(view: View) {

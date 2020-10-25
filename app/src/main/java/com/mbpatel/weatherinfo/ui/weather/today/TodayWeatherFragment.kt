@@ -14,7 +14,6 @@ import com.mbpatel.weatherinfo.R
 import com.mbpatel.weatherinfo.databinding.FragmentTodayWeatherBinding
 import com.mbpatel.weatherinfo.model.forecast.ForecastData
 import com.mbpatel.weatherinfo.ui.weather.WeatherInfoViewModel
-import com.mbpatel.weatherinfo.ui.weather.forecast.ForecastWeatherFragment
 import com.mbpatel.weatherinfo.utils.InjectorUtils
 import com.mbpatel.weatherinfo.utils.convertToDate
 import com.mbpatel.weatherinfo.utils.loadImage
